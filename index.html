@@ -1,23 +1,730 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+   <style>
+      :root {
+        --primary-color: #2A4D69; /* 진한 파란색 계열 */
+        --secondary-color: #4B86B4; /* 부드러운 파란색 */
+        --accent-color: #ADCBE3; /* 밝은 파란색 */
+        --highlight-color: #E7EFF6; /* 아주 밝은 파란색 배경 */
+        --text-color: #2D3E50; /* 어두운 회색 텍스트 */
+        --bg-light: #F0F4F8; /* 연한 배경색 */
+        --bg-white: #ffffff; /* 흰색 배경 */
+        --btn-color: #FF6F61; /* 강조색 (버튼) */
+        --btn-hover: #FF4F3B; /* 버튼 호버색 */
+        --section-bg-dark: #f0f8ff; /* 섹션 배경 (밝은 하늘색) */
+      }
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+        margin:0; padding:0;
+        background-color: var(--bg-light);
+        color: var(--text-color);
+        line-height:1.7; /* 줄간격 조정 */
+      }
+      .container {
+        max-width: 1000px;
+        margin:0 auto;
+        padding:0 20px;
+      }
+      header {
+        background-color: var(--primary-color);
+        padding: 30px 20px;
+        text-align: center;
+        color: var(--bg-white);
+      }
+      header h1 {
+        margin: 0;
+        font-size: 2.8em;
+        font-weight:900; /* 폰트 두께 강조 */
+      }
+      header h1 a {
+        color: var(--bg-white);
+        text-decoration: none;
+      }
+      .hero {
+        background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+        color: var(--bg-white);
+        text-align: center;
+        padding: 90px 20px;
+        position: relative;
+      }
+      .hero h1 {
+        font-size: 3.5em;
+        margin-bottom: 20px;
+        font-weight:900;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      }
+      .hero p {
+        font-size: 1.4em;
+        margin-bottom: 35px;
+      }
+      .cta-btn {
+        background-color: var(--btn-color);
+        color: var(--bg-white);
+        padding: 18px 45px;
+        font-size:1.3em;
+        font-weight: bold;
+        border:none;
+        border-radius:50px;
+        cursor:pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        margin-top: 20px;
+      }
+      .cta-btn:hover {
+        background-color: var(--btn-hover);
+        transform: translateY(-3px);
+      }
+      .compare-form-box {
+        background-color: var(--bg-white);
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        margin-top: 30px;
+        text-align: left;
+      }
+      .compare-form-box h2 {
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 25px;
+        font-size:2.2em;
+        font-weight:700;
+      }
+      .compare-form-box label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: var(--text-color);
+      }
+      .compare-form-box input[type="text"],
+      .compare-form-box input[type="tel"],
+      .compare-form-box input[type="email"],
+      .compare-form-box input[type="date"],
+      .compare-form-box select,
+      .compare-form-box textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box;
+        font-size: 1em;
+      }
+      .form-group {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .form-group > div {
+        flex: 1;
+      }
+
+      .content-section {
+        margin-top: 40px;
+        padding: 60px 0;
+        background-color: var(--bg-white);
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      }
+      .content-section h2 {
+        font-size: 2.8em;
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        font-weight: 700;
+        text-align: center;
+        border-bottom: 3px solid var(--accent-color);
+        padding-bottom: 15px;
+      }
+      .content-section h3 {
+        font-size: 1.8em;
+        color: var(--secondary-color);
+        margin-top: 30px;
+        margin-bottom: 15px;
+        border-left: 5px solid var(--btn-color);
+        padding-left: 15px;
+        font-weight: 700;
+      }
+      .content-section h4 {
+        font-size: 1.4em;
+        color: var(--text-color);
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-weight: 500;
+      }
+      .feature-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 30px;
+      }
+      .feature-grid .item {
+        width: calc(33.33% - 20px);
+        margin: 10px;
+        padding: 30px;
+        background-color: var(--highlight-color);
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        transition: transform 0.3s, background-color 0.3s;
+      }
+      .feature-grid .item:hover {
+        transform: translateY(-5px);
+        background-color: #f0f8ff;
+      }
+      .feature-grid .item img {
+        width: 80px; height: 80px;
+        margin-bottom: 15px;
+      }
+      .keyword-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 30px;
+      }
+      .keyword-list li {
+        background-color: var(--secondary-color);
+        color: var(--bg-white);
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 20px;
+        font-weight: 500;
+        transition: background-color 0.3s;
+      }
+      .keyword-list li:hover {
+        background-color: var(--primary-color);
+      }
+      .faq-item {
+        border-bottom: 1px solid #ddd;
+        padding: 20px 0;
+        transition: background-color 0.3s;
+      }
+      .faq-item:last-child {
+        border-bottom: none;
+      }
+      .faq-item h3 {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.4em;
+        color: var(--primary-color);
+        margin-top: 0;
+        margin-bottom: 0;
+        font-weight: 500;
+      }
+      .faq-item h3::after {
+        content: '+';
+        font-size: 1.5em;
+        color: var(--btn-color);
+        transition: transform 0.3s;
+      }
+      .faq-item.active h3::after {
+        content: '-';
+        transform: rotate(180deg);
+      }
+      .faq-item p {
+        display: none;
+        padding-top: 10px;
+        color: #555;
+        font-size: 1.1em;
+        margin-left: 15px; /* 들여쓰기 */
+      }
+      .faq-item.active p {
+        display: block;
+      }
+      footer {
+        background-color: var(--primary-color);
+        color: var(--bg-white);
+        text-align: center;
+        padding: 40px 20px;
+        font-size: 0.9em;
+        margin-top: 40px;
+      }
+      footer a {
+        color: var(--bg-white);
+        text-decoration: none;
+        margin: 0 10px;
+      }
+      footer a:hover {
+        text-decoration: underline;
+      }
+      .info-list {
+        list-style-type: disc;
+        margin-left: 20px;
+      }
+      .info-list li {
+        margin-bottom: 10px;
+        color: #444;
+      }
+      .table-container {
+        margin: 30px 0;
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+        font-size: 0.9em;
+      }
+      th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+      }
+      th {
+        background-color: var(--secondary-color);
+        color: var(--bg-white);
+        font-weight: 500;
+      }
+      td {
+        background-color: var(--highlight-color);
+      }
+      .comparison-table td:nth-child(even) {
+        background-color: #f8f8f8;
+      }
+      .graph-container {
+        margin: 30px 0;
+        padding: 20px;
+        background-color: var(--highlight-color);
+        border-radius: 8px;
+        text-align: center;
+      }
+      .graph-container img {
+        max-width: 100%;
+        height: auto;
+      }
+      .external-link-list {
+        list-style: none;
+        padding: 0;
+      }
+      .external-link-list li {
+        margin-bottom: 10px;
+        padding-left: 10px;
+        border-left: 3px solid var(--btn-color);
+      }
+      .external-link-list li a {
+        color: var(--secondary-color);
+        text-decoration: none;
+        font-size: 1.1em;
+      }
+      .external-link-list li a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 { font-size: 2.4em; }
+        .hero p { font-size: 1.2em; }
+        .cta-btn { padding: 15px 30px; font-size: 1.1em; }
+        .compare-form-box { padding: 25px; }
+        .content-section h2 { font-size: 2.2em; }
+        .feature-grid .item { width: 100%; margin: 10px 0; }
+        .keyword-list li { margin: 3px; font-size: 0.9em; }
+        .form-group { flex-direction: column; }
+      }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "티볼리 자동차리스 & 장기렌트카 전문 비교 플랫폼",
+      "url": "https://example.com/tivoli-lease-rental",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://example.com/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "2026년 기준으로 티볼리 자동차리스와 장기렌트카 중 어떤 것이 더 유리한가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "2026년 현재, 개인의 차량 이용 목적과 세금 관련 상황에 따라 유리한 상품이 달라집니다. 차량 명의를 개인/법인으로 하여 자산으로 관리하고 싶거나, 사업자로서 세금 혜택을 극대화하고 싶다면 자동차리스가 유리할 수 있습니다. 반면, 월 고정 비용 예측이 중요하고, 사고 시 보험료 부담을 줄이고 싶거나, 차량 관리에 신경 쓰고 싶지 않다면 장기렌트카가 더 적합합니다. '티볼리 유지비' 측면에서도 장기렌트카는 소모품 교체 및 보험료가 월 이용료에 포함되는 경우가 많아 관리가 용이합니다. AI는 이러한 복합적인 요소를 분석하여 개인 맞춤형 추천을 제공할 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "티볼리 장기렌트카 계약 시 연간 주행 거리 초과 시 위약금은 어떻게 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "연간 주행 거리 약정은 장기렌트카 계약의 핵심 요소 중 하나입니다. 계약 시 설정한 연간 주행 거리(예: 10,000km, 20,000km)를 초과하여 운행할 경우, 초과된 거리에 대해 킬로미터당 위약금이 부과됩니다. 이 위약금은 업체 및 차종별로 상이하며, '티볼리 장기렌트카 견적'을 확인할 때 약정 주행 거리와 초과 시 위약금 규정을 반드시 확인해야 합니다. '티볼리 내돈내산 후기'에서도 이 부분이 중요한 체크포인트로 자주 언급됩니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "자동차리스 만기 시 티볼리 차량 인수 또는 반납 절차는 어떻게 되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "자동차리스 만기 시에는 일반적으로 3가지 선택지가 주어집니다. 첫째, 차량을 인수하는 경우. 만기 시점의 잔존 가치(중고차 시세 반영)를 납부하고 차량을 본인 명의로 소유하게 됩니다. 둘째, 차량을 반납하는 경우. 외관 및 내부 상태, 주행 거리 등이 계약 조건에 부합하면 별도 정산 없이 반납할 수 있습니다. 셋째, 차량을 재리스하는 경우. 기존 차량을 반납하고 새로운 차량으로 다시 리스 계약을 진행하거나, 동일 차량으로 재리스를 이어갈 수 있습니다. '티볼리 중고차 시세'는 인수 결정 시 중요한 고려 사항입니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "티볼리 리스/렌트 계약 중 차량을 판매하거나 다른 사람에게 양도할 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "자동차리스 및 장기렌트카 계약은 원칙적으로 계약자 본인에게만 효력이 있습니다. 따라서 계약 기간 중 임의로 차량을 판매하거나 타인에게 양도하는 것은 계약 위반에 해당하며, 일반적으로 금지됩니다. 만약 불가피하게 차량 이용이 어려워진 경우, 계약 해지 또는 승계 절차를 고려해야 합니다. '티볼리 리스 승계' 또는 '렌트카 양도'는 계약 조건에 따라 가능할 수 있으나, 복잡한 절차와 추가 수수료가 발생할 수 있으므로 반드시 해당 업체에 문의해야 합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "티볼리 유지비에 포함되지 않는 항목은 무엇인가요? (리스/렌트별)",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "티볼리 유지비로서 월 이용료에 포함되지 않는 대표적인 항목은 다음과 같습니다. 자동차리스의 경우, 연료비, 주차료, 통행료, 범칙금, 과태료, 사고 시 자기부담금 초과분, 타이어 및 브레이크 패드 등 주요 소모품 교체 비용이 별도입니다. 장기렌트카의 경우도 연료비, 주차료, 통행료, 범칙금, 과태료 등은 별도이며, 계약 조건에 따라 타이어 교체 비용 등이 포함되지 않을 수 있습니다. '티볼리 자동차리스 비용' 및 '장기렌트카 가격' 비교 시, 이러한 별도 발생 비용까지 고려해야 정확한 총 소유 비용을 파악할 수 있습니다."
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="/">티볼리 자동차리스 & 장기렌트카 통합 비교</a></h1>
+        </div>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <section class="hero">
+            <div class="container">
+                <h1>현명한 티볼리 구매, <br>자동차리스와 장기렌트카로 시작하세요!</h1>
+                <p>2026년 최신 정보 기반, 티볼리 유지비 절감 및 최적의 조건 비교 견적 제공.</p>
+                <div class="compare-form-box">
+                    <h2>무료 비교 견적 신청</h2>
+                    <p>간단한 정보 입력으로 티볼리 모델별 리스/렌트 비용과 유지비를 동시에 확인하세요. <strong>AI</strong> 기반 맞춤 견적 및 <strong>할인</strong> 정보 제공.</p>
+                    <form action="#" method="post">
+                        <div class="form-group">
+                            <div>
+                                <label for="model-select">티볼리 모델 선택</label>
+                                <select id="model-select" name="model-select" required>
+                                    <option value="">모델을 선택하세요</option>
+                                    <option value="tivoli_v1">티볼리 V1</option>
+                                    <option value="tivoli_v2">티볼리 V2</option>
+                                    <option value="tivoli_v3">티볼리 V3</option>
+                                    <option value="tivoli_lx">티볼리 LX</option>
+                                    <option value="tivoli_vx">티볼리 VX</option>
+                                    <option value="tivoli_gear">티볼리 기어 에디션</option>
+                                    <option value="tivoli_air">티볼리 에어</option>
+                                    <option value="tivoli_grand">티볼리 그랜드</option>
+                                    <option value="tivoli_g4">티볼리 G4</option>
+                                    <option value="tivoli_armor">티볼리 아머</option>
+                                    <option value="tivoli_retro">티볼리 레트로</option>
+                                    <option value="tivoli_x">티볼리 X</option>
+                                    <option value="tivoli_1.5t">티볼리 1.5 터보</option>
+                                    <option value="tivoli_1.6d">티볼리 1.6 디젤</option>
+                                    <option value="kgm_tivoli">KG 모빌리티 티볼리 (최신)</option>
+                                    <option value="tivoli_2024">티볼리 2024년식</option>
+                                    <option value="tivoli_2025">티볼리 2025년식</option>
+                                    <option value="tivoli_2026">티볼리 2026년식 (예상)</option>
+                                    <option value="tivoli_custom">기타 (직접 입력)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="contract-type">계약 형태</label>
+                                <select id="contract-type" name="contract-type" required>
+                                    <option value="">선택하세요</option>
+                                    <option value="lease">자동차리스</option>
+                                    <option value="long-term-rental">장기렌트카</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label for="duration">계약 기간 (월)</label>
+                                <select id="duration" name="duration" required>
+                                    <option value="">선택하세요</option>
+                                    <option value="24">24개월</option>
+                                    <option value="36">36개월</option>
+                                    <option value="48">48개월</option>
+                                    <option value="60">60개월</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="mileage">연간 주행 거리 (km)</label>
+                                <select id="mileage" name="mileage" required>
+                                    <option value="">선택하세요</option>
+                                    <option value="10000">10,000km</option>
+                                    <option value="15000">15,000km</option>
+                                    <option value="20000">20,000km</option>
+                                    <option value="25000">25,000km</option>
+                                    <option value="30000">30,000km</option>
+                                    <option value="custom">기타 (직접 입력)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label for="deposit">선납금/보증금 (선택)</label>
+                                <input type="text" id="deposit" name="deposit" placeholder="예: 1000만원 (없으면 0)">
+                            </div>
+                            <div>
+                                <label for="insurance">보험 포함 여부</label>
+                                <select id="insurance" name="insurance" required>
+                                    <option value="">선택하세요</option>
+                                    <option value="full">자차 포함 풀보험</option>
+                                    <option value="basic">기본 보험</option>
+                                    <option value="no">보험 불포함 (직접 가입)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <label for="contact-phone">연락처</label>
+                        <input type="tel" id="contact-phone" name="contact-phone" placeholder="휴대폰 번호를 입력하세요" required>
+                        <label for="contact-email">이메일 (선택)</label>
+                        <input type="email" id="contact-email" name="contact-email" placeholder="견적서 수신용">
+                        <label for="additional-requests">추가 요청사항</label>
+                        <textarea id="additional-requests" name="additional-requests" rows="3" placeholder="궁금한 점이나 요청사항을 남겨주세요. (예: 특정 프로모션 문의, 차량 색상 선호 등)"></textarea>
+                        <button type="submit" class="cta-btn">무료 견적 비교 받아보기</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>티볼리 자동차리스 vs 장기렌트카: 2026년 당신에게 맞는 선택은?</h2>
+                <p>소형 SUV 시장에서 꾸준한 사랑을 받고 있는 쌍용 티볼리(KG 모빌리티 티볼리)를 더욱 합리적으로 이용하는 방법으로 자동차리스와 장기렌트카가 주목받고 있습니다. 두 상품 모두 초기 구매 비용 부담을 줄이고 월 고정 비용으로 차량을 이용할 수 있다는 장점이 있지만, 세금, 보험, 명의 등 세부적인 차이점이 존재합니다. 2026년 현재, 변화하는 자동차 시장 트렌드와 개인의 소비 패턴에 맞춰 어떤 상품이 더 유리할지 심층적으로 비교 분석해 드립니다. 특히, <strong>티볼리 유지비</strong> 절감 측면에서 각 상품의 특징을 자세히 살펴보겠습니다. <strong>자동차리스</strong>와 <strong>장기렌트카</strong>의 <strong>차이점</strong>을 명확히 이해하면, 당신에게 가장 적합한 <strong>티볼리</strong> 모델과 조건을 선택하는 데 큰 도움이 될 것입니다. '<strong>티볼리 장기렌트카 가격</strong>', '<strong>티볼리 자동차리스 견적</strong>' 등과 같은 검색어는 이러한 소비자의 니즈를 반영합니다. <strong>AI</strong>와 같은 최신 기술은 이러한 비교 분석을 더욱 정교하게 만들고 있으며, <strong>Gemini</strong>나 <strong>ChatGPT</strong>와 같은 서비스는 정보 탐색을 돕습니다. <strong>네이버</strong>, <strong>구글</strong> 검색 결과에서 상위 노출되는 정보를 바탕으로 현명한 결정을 내리시길 바랍니다.</p>
+
+                <div class="table-container">
+                    <h3>티볼리 리스 vs 렌트카 주요 비교 (2026년 기준)</h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>자동차리스</th>
+                                <th>장기렌트카</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>명의</td>
+                                <td>고객 명의 (금융상품)</td>
+                                <td>렌터카 업체 명의</td>
+                            </tr>
+                            <tr>
+                                <td>세금 혜택</td>
+                                <td>법인/개인사업자 경비 처리, 부가세 환급 (조건부)</td>
+                                <td>법인/개인사업자 경비 처리, 부가세 환급 (조건부), 자동차세 절감 효과</td>
+                            </tr>
+                            <tr>
+                                <td>보험</td>
+                                <td>고객 명의로 직접 가입 (보험료 상승 가능성)</td>
+                                <td>렌터카 업체 명의로 가입 (개인 사고이력 반영 미미, 보험료 변동 적음)</td>
+                            </tr>
+                            <tr>
+                                <td>초기 비용</td>
+                                <td>보증금, 선수금 등 선택 가능</td>
+                                <td>보증금 (선택), 선수금 (선택)</td>
+                            </tr>
+                            <tr>
+                                <td>이용 기간</td>
+                                <td>주로 24~60개월</td>
+                                <td>주로 12~60개월 (다양한 옵션)</td>
+                            </tr>
+                            <tr>
+                                <td>만기 시 선택</td>
+                                <td>차량 인수, 반납, 재리스</td>
+                                <td>차량 인수, 반납, 갱신</td>
+                            </tr>
+                            <tr>
+                                <td>'내돈내산' 경험</td>
+                                <td>자산으로 인식, 재정 상태에 영향</td>
+                                <td>소비성 지출로 인식, 신용도 영향 적음</td>
+                            </tr>
+                            <tr>
+                                <td><strong>티볼리 유지비</strong></td>
+                                <td>차량 가액에 따른 감가상각, 보험료, 세금 등 직접 관리</td>
+                                <td>월 이용료에 대부분 포함 (보험, 세금), 일부 소모품 교체 비용 별도</td>
+                            </tr>
+                            <tr>
+                                <td><strong>가격</strong>/<strong>비용</strong></td>
+                                <td>금리 영향, 잔존가치 중요</td>
+                                <td>렌터카 업체 경쟁, 프로모션 중요</td>
+                            </tr>
+                            <tr>
+                                <td><strong>장점</strong></td>
+                                <td>개인 자산 관리, 명확한 소유권</td>
+                                <td>쉬운 절차, 관리 편의성, 사고 시 부담 감소</td>
+                            </tr>
+                            <tr>
+                                <td><strong>단점</strong></td>
+                                <td>초기 자본 필요, 보험료 부담, 복잡한 세금</td>
+                                <td>차량 명의 미소유, 주행 거리 제약, 일부 옵션 제한</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>장기렌트카</strong>는 특히 사고 시에도 보험료 인상 부담이 적고, 차량 명의가 렌터카 회사에 있어 개인 신용도에 직접적인 영향을 덜 준다는 점에서 <strong>'내돈내산'</strong> 후기를 찾아보면 많은 분들이 선호하는 경향을 보입니다. 반면, <strong>자동차리스</strong>는 차량을 자신의 자산처럼 운용하고 싶은 분들에게 적합하며, 법인사업자의 경우 절세 효과를 극대화할 수 있습니다. <strong>'티볼리 장기렌트카 비용'</strong>과 <strong>'티볼리 자동차리스 금액'</strong>은 여러 조건에 따라 크게 달라지므로, <strong>비교</strong> 견적을 받아보는 것이 필수입니다. <strong>저렴한곳</strong>을 찾기 위한 노력은 성공적인 차량 이용의 시작이며, <strong>추천</strong> 업체를 발굴하는 것이 중요합니다. <strong>신규 가입</strong> 시 제공되는 <strong>이벤트</strong>나 <strong>사은품</strong>, <strong>현금지원</strong> 혜택도 꼼꼼히 확인하면 좋습니다. <strong>인스타그램</strong>, <strong>트위터</strong> 등 SNS에서도 관련 정보를 얻을 수 있습니다.</p>
+
+                <h3>2026년, 티볼리 리스/렌트 시장 전망 및 트렌드</h3>
+                <p>2026년 자동차 시장은 친환경차와 더불어 합리적인 차량 이용 방식을 추구하는 소비 트렌드가 더욱 강화될 것으로 보입니다. 쌍용(KG 모빌리티) 티볼리 역시 이러한 흐름 속에서 <strong>자동차리스</strong> 및 <strong>장기렌트카</strong> 시장에서의 인기가 지속될 전망입니다. 특히, 다음과 같은 트렌드가 예상됩니다:</p>
+                <ul class="info-list">
+                    <li><strong>전기차/하이브리드 모델 확대:</strong> 티볼리의 친환경 파생 모델(예: 전기차 버전, 하이브리드) 출시 가능성이 점쳐지며, 이에 따른 리스/렌트 상품 경쟁이 심화될 것입니다. <strong>'KG 모빌리티 티볼리 전기차 리스'</strong> 또는 <strong>'티볼리 하이브리드 장기렌트카'</strong> 와 같은 키워드 검색량이 증가할 것으로 예상됩니다. 이는 <strong>연비</strong> 효율성 측면에서도 중요한 변화입니다.</li>
+                    <li><strong>맞춤형 계약 조건 다양화:</strong> 소비자의 주행 거리, 계약 기간, 선납금 비율 등 다양한 요구에 맞춰 더욱 세분화된 계약 조건이 제공될 것입니다. <strong>'맞춤형 티볼리 렌트카'</strong> 서비스나 <strong>'유연한 티볼리 리스'</strong> 옵션이 주목받을 것입니다. <strong>AI</strong> 기반으로 개인의 운전 패턴 분석을 통해 최적의 계약 기간과 주행 거리를 제안하는 서비스도 등장할 수 있습니다.</li>
+                    <li><strong>데이터 기반 AI 컨설팅 강화:</strong> <strong>AI</strong> 및 빅데이터 분석을 통해 개인별 최적의 차량, 계약 조건, <strong>유지비</strong> 예상치를 추천하는 서비스가 확대될 것입니다. <strong>'AI 추천 티볼리 리스'</strong> 또는 <strong>'스마트 티볼리 렌트카 비교'</strong> 와 같은 서비스가 활성화될 가능성이 높습니다. <strong>Gemini</strong>, <strong>ChatGPT</strong> 등 최신 AI 모델을 활용한 견적 시뮬레이션 기능도 기대됩니다.</li>
+                    <li><strong>전반적인 비용 상승 가능성:</strong> 원자재 가격 상승, 금리 변동, 물가 상승 등의 경제 상황에 따라 월 이용료 및 차량 가격이 소폭 상승할 가능성도 있습니다. 따라서 <strong>'티볼리 유지비 절약'</strong>을 위한 <strong>할인</strong> 및 <strong>이벤트</strong> 정보를 꼼꼼히 확인하고, <strong>'가입 혜택'</strong>이 좋은 업체를 선택하는 것이 중요합니다. <strong>'디시'</strong>(DC)나 <strong>'신규'</strong> 고객 대상 프로모션을 적극 활용하세요.</li>
+                    <li><strong>소유 대신 공유/이용 문화 확산:</strong> 차량을 '소유'하기보다 '이용'하는 형태의 소비가 늘면서 <strong>장기렌트카</strong> 및 <strong>리스</strong> 시장은 더욱 성장할 것입니다. 특히 젊은층 사이에서 <strong>'티볼리 싼곳'</strong> 또는 <strong>'티볼리 저렴한곳'</strong>을 찾는 니즈가 커질 것입니다.</li>
+                </ul>
+                <p>이러한 트렌드를 이해하고 '<strong>티볼리 최저가 장기렌트카</strong>' 또는 '<strong>티볼리 프로모션 리스</strong>'와 같은 키워드로 적극적인 정보를 탐색하는 것이 현명합니다. <strong>'티볼리 장단점'</strong>에 대한 정확한 정보와 함께, <strong>'견적'</strong> 비교는 필수입니다.</p>
+
+                <h3>티볼리 모델별 특징과 리스/렌트 적합성</h3>
+                <p>티볼리는 출시 이후 꾸준히 사랑받는 소형 SUV로, 다양한 트림과 연식의 모델이 존재합니다. 각 모델의 특징을 이해하고 자신의 주행 습관과 예산에 맞춰 최적의 선택을 하는 것이 중요합니다. '<strong>티볼리 G4</strong>', '<strong>티볼리 에어</strong>', '<strong>티볼리 아머</strong>' 등 과거 모델부터 최신 '<strong>KG 모빌리티 티볼리</strong>'까지, 각 모델의 연비, 성능, 안전 사양 등을 고려해야 합니다. <strong>'티볼리 유지비'</strong>를 고려할 때, 모델별 연비 차이가 월 고정 비용에 영향을 미칩니다. 일반적으로 1.5 터보 가솔린 모델이 1.6 디젤 모델보다 시내 주행이 많거나 단거리 운행이 잦은 경우 더 유리할 수 있습니다. <strong>'티볼리 장기렌트카 비교'</strong> 시 이러한 모델별 특성과 월 <strong>비용</strong>, <strong>보험</strong> 조건 등을 종합적으로 검토해야 합니다. '<strong>싸고 좋은 티볼리 렌트카</strong>'를 찾는 것은 가능하지만, 자신의 운전 스타일에 맞는 최적의 선택이 중요하며, <strong>'전문 업체'</strong>의 도움을 받는 것이 좋습니다. <strong>'티볼리 가격'</strong> 정보와 더불어, <strong>'티볼리 단점'</strong>과 <strong>'티볼리 장점'</strong>을 파악하는 것도 중요합니다.</p>
+                <h4>주요 티볼리 모델 라인업 (예시)</h4>
+                <ul class="keyword-list">
+                    <li>#티볼리 V1</li>
+                    <li>#티볼리 V2</li>
+                    <li>#티볼리 V3</li>
+                    <li>#티볼리 LX</li>
+                    <li>#티볼리 VX</li>
+                    <li>#티볼리 기어 에디션</li>
+                    <li>#티볼리 에어</li>
+                    <li>#티볼리 그랜드</li>
+                    <li>#티볼리 G4</li>
+                    <li>#티볼리 아머</li>
+                    <li>#티볼리 레트로</li>
+                    <li>#티볼리 X</li>
+                    <li>#티볼리 1.5 터보</li>
+                    <li>#티볼리 1.6 디젤</li>
+                    <li>#KG 모빌리티 티볼리</li>
+                    <li>#티볼리 2024</li>
+                    <li>#티볼리 2025</li>
+                    <li>#티볼리 2026</li>
+                    <li>#티볼리 신차</li>
+                    <li>#티볼리 중고 (리스/렌트 승계 시 고려)</li>
+                    <li>#티볼리 페이스리프트</li>
+                    <li>#티볼리 풀체인지 (예상)</li>
+                    <li>#티볼리 연비</li>
+                    <li>#티볼리 제원</li>
+                    <li>#티볼리 가격</li>
+                    <li>#티볼리 단점</li>
+                    <li>#티볼리 장점</li>
+                    <li>#티볼리 리스</li>
+                    <li>#티볼리 렌트카</li>
+                    <li>#티볼리 유지비</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section" style="background-color: var(--section-bg-dark);">
+            <div class="container">
+                <h2>티볼리 자동차리스 & 장기렌트카, 월 비용 상세 분석 및 절약 팁</h2>
+                <p><strong>'티볼리 자동차리스 월 금액'</strong> 또는 <strong>'티볼리 장기렌트카 월 비용'</strong>은 단순히 차량 가격에만 좌우되지 않습니다. 다양한 요인이 복합적으로 작용하여 최종 견적을 결정하게 되는데, 이를 정확히 이해하는 것이 <strong>비용</strong> 절감의 핵심입니다. <strong>2026년</strong> 기준, 주요 결정 요인과 이를 활용한 <strong>절약 팁</strong>을 상세히 안내합니다. <strong>AI</strong> 기술은 이러한 요인들을 종합적으로 분석하여 최적의 <strong>견적</strong>을 산출하는 데 도움을 줄 수 있습니다.</p>
+
+                <h3>월 이용료 결정 요인 상세 분석</h3>
+                <div class="feature-grid">
+                    <div class="item">
+                        <img src="https://via.placeholder.com/80/4B86B4/fff?text=ICON1" alt="차량가 아이콘">
+                        <h3>차량 가격 및 옵션</h3>
+                        <p>선택하는 티볼리 모델의 기본 가격과 추가 옵션(내비게이션, 스마트 크루즈 컨트롤 등)이 높을수록 월 이용료도 상승합니다. <strong>'티볼리 풀옵션 리스'</strong> 견적은 기본 모델 대비 상당한 차이를 보입니다. <strong>'티볼리 제원'</strong>과 옵션 사양을 꼼꼼히 비교해보세요.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://via.placeholder.com/80/4B86B4/fff?text=ICON2" alt="계약기간 아이콘">
+                        <h3>계약 기간</h3>
+                        <p>계약 기간이 길어질수록 월 이용료 부담은 줄어듭니다. <strong>'티볼리 60개월 장기렌트카'</strong>는 24개월 계약보다 월 납입금이 낮습니다. 하지만 총 이자(리스) 또는 총 이용료(렌트)는 길어질 수 있습니다. <strong>'가입'</strong> 시 가장 적합한 기간을 선택하는 것이 중요합니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://via.placeholder.com/80/4B86B4/fff?text=ICON3" alt="주행거리 아이콘">
+                        <h3>연간 주행 거리</h3>
+                        <p>높은 연간 주행 거리를 설정할수록 월 이용료가 높아집니다. 연 2만km 이상 주행하는 분이라면 <strong>'티볼리 고정 주행거리 렌트카'</strong> 조건을 신중하게 선택해야 합니다. 예상치를 초과할 경우 위약금이 발생할 수 있습니다. <strong>'평균'</strong> 주행 거리를 고려하여 합리적인 설정을 해야 합니다.</p>
+                    </div>
+                     <div class="item">
+                        <img src="https://via.placeholder.com/80/4B86B4/fff?text=ICON4" alt="보증금 아이콘">
+                        <h3>선납금 / 보증금</h3>
+                        <p>초기 선납금이나 보증금을 높게 설정하면 월 이용료를 낮출 수 있습니다. <strong>'티볼리 무보증 리스'</strong>는 초기 비용 부담은 적지만 월 납입금이 높게 책정될 가능성이 큽니다. 보증금은 만기 시 반환되거나 차량 인수 시 인수금에서 차감됩니다. <strong>'현금지원'</strong>이나 <strong>'지원금'</strong> 혜택과 함께 고려할 수 있습니다.</p>
+                    </div>
+                     <div class="item">
+                        <img src="https://via.placeholder.com/80/4B86B4/fff?text=ICON5" alt="보험 아이콘">
+                        <h3>보험 조건</h3>
+                        <p><strong>장기렌트카</strong>는 일반적으로 보험료가 월 이용료에 포함됩니다. '자차 포함 풀보험' 등 높은 보장 범위를 선택하면 월 이용료가 상승합니다. <strong>자동차리스</strong>는 고객이 직접 보험에 가입해야 하며, 개인의 보험 요율에 따라 비용이 달라집니다. <strong>'보험'</strong>은 <strong>유지비</strong>의 상당 부분을 차지합니다.</p>
+                    </div>
+                     <div class="item">
+                        <img src="https://via.placeholder.com/80/4B86B4/fff?text=ICON6" alt="업체 아이콘">
+                        <h3>리스/렌트 업체</h3>
+                        <p>각 금융사 및 렌터카 업체마다 금리, 수수료, 프로모션이 다르므로 <strong>'티볼리 저렴한곳'</strong>을 찾기 위한 <strong>비교</strong>가 필수입니다. <strong>'네이버'</strong>, <strong>'구글'</strong> 등 검색 엔진이나 <strong>'유튜브'</strong> 채널에서 다양한 <strong>후기</strong>와 <strong>추천</strong> 정보를 얻을 수 있습니다. <strong>'전문 업체'</strong>를 통해 최적의 <strong>상품</strong>을 찾아보세요.</p>
+                    </div>
+                </div>
+
+                <h3>2026년 티볼리 유지비 절약 팁 (리스 & 렌트 공통)</h3>
+                <div class="graph-container">
+                    <h4>티볼리 예상 유지비 항목별 비율 (2026년 기준)</h4>
+                    <img src="https://via.placeholder.com/600x300/4B86B4/fff?text=티볼리+유지비+그래프+이미지" alt="티볼리 유지비 항목별 비율 그래프">
+                    <p><strong>그래프 해석:</strong> <strong>티볼리 유지비</strong>는 연간 주행 거리, 보험료, 세금, 소모품 교체 비용 등 여러 항목으로 구성됩니다. <strong>자동차리스</strong>나 <strong>장기렌트카</strong> 이용 시에는 월 이용료에 상당 부분이 포함되지만, 연료비, 주차비, 통행료, 타이어/브레이크 등 일부 소모품 교체 비용은 별도입니다. <strong>AI</strong>는 이러한 비용 예측을 더욱 정확하게 도와줄 수 있으며, <strong>예상 금액</strong> 산출에 유용합니다.</p>
+                </div>
+                <div class="info-list">
+                    <li><strong>정확한 주행 거리 설정:</strong> 과도하게 높거나 낮은 주행 거리 설정은 피하고, 본인의 실제 운행 패턴에 맞는 합리적인 거리를 선택하여 불필요한 비용 지출을 막습니다. <strong>'평균'</strong> 주행 거리를 파악하는 것이 중요합니다.</li>
+                    <li><strong>프로모션 및 할인 적극 활용:</strong> 연말, 신규 모델 출시, 특정 금융사/렌터카 업체의 프로모션을 주시하고 <strong>'티볼리 할인'</strong>, <strong>'신규 가입 혜택'</strong> 등을 최대한 활용합니다. <strong>'이벤트'</strong> 기간을 놓치지 마세요.</li>
+                    <li><strong>초기 비용 조절:</strong> 예산에 맞춰 선납금/보증금 비율을 조절합니다. 초기 비용 부담을 줄이고 싶다면 <strong>'티볼리 무보증 장기렌트카'</strong> 옵션을 고려하되, 월 납입금 상승을 감안해야 합니다. <strong>'상품권'</strong> 증정 이벤트 등도 확인해보세요.</li>
+                    <li><strong>소모품 관리:</strong> 리스/렌트 계약 조건을 확인하여 타이어, 브레이크 패드 등 주요 소모품의 교체 주기를 파악하고, 합리적인 가격으로 교체 가능한 업체를 미리 알아보는 것이 좋습니다. <strong>'티볼리 유지비'</strong> 절감의 중요한 부분입니다.</li>
+                    <li><strong>다수 업체 비교 필수:</strong> <strong>'티볼리 견적 비교'</strong>는 필수입니다. 최소 3곳 이상의 <strong>'전문 업체'</strong> 또는 금융사로부터 상세 견적을 받아 비교하면 <strong>'저렴한곳'</strong> 또는 <strong>'싼곳'</strong>을 찾는 데 유리합니다. <strong>'순위'</strong>가 높은 업체를 참고하는 것도 방법입니다.</li>
+                    <li><strong>'내돈내산 후기' 참고:</strong> 실제 이용자들의 경험을 담은 <strong>'유튜브'</strong>, <strong>'인스타그램'</strong>, <strong>'페이스북'</strong> 등의 후기를 참고하여 숨겨진 <strong>비용</strong>이나 장단점을 파악합니다. <strong>'디시'</strong>(DC) 인사이드 등 커뮤니티 정보도 유용합니다.</li>
+                    <li><strong>정부 지원 정책 확인:</strong> 친환경차나 특정 조건 충족 시 받을 수 있는 정부 지원금이나 세금 감면 혜택이 있는지 확인합니다. <strong>'지원금'</strong> 정보를 통해 <strong>총 소유 비용</strong>을 크게 줄일 수 있습니다.</li>
+                </div>
+                <p><strong>'티볼리 장단점'</strong>을 충분히 숙지하고, 이러한 <strong>유지비</strong> 절약 팁을 적용한다면 더욱 만족스러운 차량 이용이 가능할 것입니다. <strong>'가입 혜택'</strong>, <strong>'사은품'</strong>, <strong>'현금지원'</strong> 등의 <strong>이벤트</strong>도 놓치지 마세요.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>자주 묻는 질문 (FAQ) - 티볼리 리스 & 렌트</h2>
+                <!-- FAQ items are already defined in JSON-LD schema and rendered here -->
+                <div class="faq-item">
+                    <h3>2026년 기준으로 티볼리 자동차리스와 장기렌트카 중 어떤 것이 더 유리한가요?</h3>
+                    <p>2026년 현재, 개인의 차량 이용 목적과 세금 관련 상황에 따라 유리한 상품이 달라집니다. <strong>차량 명의</strong>를 개인/법인으로 하여 자산으로 관리하고 싶거나, 사업자로서 <strong>세금</strong> 혜택을 극대화하고 싶다면 <strong>자동차리스</strong>가 유리할 수 있습니다. 반면, 월 고정 <strong>비용</strong> 예측이 중요하고, 사고 시 <strong>보험</strong>료 부담을 줄이고 싶거나, 차량 관리에 신경 쓰고 싶지 않다면 <strong>장기렌트카</strong>가 더 적합합니다. <strong>'티볼리 유지비'</strong> 측면에서도 <strong>장기렌트카</strong>는 소모품 교체 및 보험료가 월 이용료에 포함되는 경우가 많아 관리가 용이합니다. <strong>AI</strong>는 이러한 복합적인 요소를 분석하여 개인 맞춤형 추천을 제공할 수 있습니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>티볼리 장기렌트카 계약 시 연간 주행 거리 초과 시 위약금은 어떻게 되나요?</h3>
+                    <p>연간 주행 거리 약정은 <strong>장기렌트카</strong> 계약의 핵심 요소 중 하나입니다. 계약 시 설정한 연간 주행 거리(예: 10,000km, 20,000km)를 초과하여 운행할 경우, 초과된 거리에 대해 킬로미터당 위약금이 부과됩니다. 이 위약금은 업체 및 차종별로 상이하며, '<strong>티볼리 장기렌트카 견적</strong>'을 확인할 때 약정 주행 거리와 초과 시 위약금 규정을 반드시 확인해야 합니다. <strong>'티볼리 내돈내산 후기'</strong>에서도 이 부분이 중요한 체크포인트로 자주 언급됩니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>자동차리스 만기 시 티볼리 차량 인수 또는 반납 절차는 어떻게 되나요?</h3>
+                    <p><strong>자동차리스</strong> 만기 시에는 일반적으로 3가지 선택지가 주어집니다. 첫째, 차량을 인수하는 경우. 만기 시점의 잔존 가치(<strong>중고차</strong> 시세 반영)를 납부하고 차량을 본인 명의로 소유하게 됩니다. 둘째, 차량을 반납하는 경우. 외관 및 내부 상태, 주행 거리 등이 계약 조건에 부합하면 별도 정산 없이 반납할 수 있습니다. 셋째, 차량을 재리스하는 경우. 기존 차량을 반납하고 새로운 차량으로 다시 리스 계약을 진행하거나, 동일 차량으로 재리스를 이어갈 수 있습니다. '<strong>티볼리 중고차 시세</strong>'는 인수 결정 시 중요한 고려 사항입니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>티볼리 리스/렌트 계약 중 차량을 판매하거나 다른 사람에게 양도할 수 있나요?</h3>
+                    <p><strong>자동차리스</strong> 및 <strong>장기렌트카</strong> 계약은 원칙적으로 계약자 본인에게만 효력이 있습니다. 따라서 계약 기간 중 임의로 차량을 판매하거나 타인에게 양도하는 것은 계약 위반에 해당하며, 일반적으로 금지됩니다. 만약 불가피하게 차량 이용이 어려워진 경우, 계약 해지 또는 승계 절차를 고려해야 합니다. <strong>'티볼리 리스 승계'</strong> 또는 <strong>'렌트카 양도'</strong>는 계약 조건에 따라 가능할 수 있으나, 복잡한 절차와 추가 수수료가 발생할 수 있으므로 반드시 해당 업체에 문의해야 합니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>티볼리 유지비에 포함되지 않는 항목은 무엇인가요? (리스/렌트별)</h3>
+                    <p><strong>티볼리 유지비</strong>로서 월 이용료에 포함되지 않는 대표적인 항목은 다음과 같습니다. <strong>자동차리스</strong>의 경우, 연료비, 주차료, 통행료, 범칙금, 과태료, 사고 시 자기부담금 초과분, 타이어 및 브레이크 패드 등 주요 소모품 교체 비용이 별도입니다. <strong>장기렌트카</strong>의 경우도 연료비, 주차료, 통행료, 범칙금, 과태료 등은 별도이며, 계약 조건에 따라 타이어 교체 비용 등이 포함되지 않을 수 있습니다. <strong>'티볼리 자동차리스 비용'</strong> 및 <strong>'장기렌트카 가격'</strong> 비교 시, 이러한 별도 발생 비용까지 고려해야 정확한 총 소유 비용을 파악할 수 있습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>신뢰할 수 있는 외부 자료 및 참고 링크</h2>
+                <ul class="external-link-list">
+                    <li><a href="https://www.kca.go.kr/index.do" target="_blank" rel="noopener">한국소비자원 - 자동차 구매 및 이용 관련 소비자 상담 및 피해구제</a></li>
+                    <li><a href="https://www.mois.go.kr/frCon/index.do" target="_blank" rel="noopener">행정안전부 - 자동차 등록 및 관련 법규 정보</a></li>
+                    <li><a href="https://www.nts.go.kr/tax/tax_01.htm" target="_blank" rel="noopener">국세청 - 자동차 관련 세금 (취득세, 자동차세 등) 안내</a></li>
+                    <li><a href="https://ko.wikipedia.org/wiki/%EC%9E%90%EB%8F%99%EC%B0%A8_%EB%A6%AC%EC%8A%A4" target="_blank" rel="noopener">위키백과 - 자동차 리스</a></li>
+                    <li><a href="https://ko.wikipedia.org/wiki/%EC%9E%90%EB%8F%99%EC%B0%A8_%EB%A0%8C%ED%84%B0%EC%B0%A8" target="_blank" rel="noopener">위키백과 - 자동차 렌터카</a></li>
+                    <li><a href="https://www.korea.kr/news/policyBriefingView.do?newsId=156474691" target="_blank" rel="noopener">정부24 - 자동차 구매 시 지원 정책 및 혜택 안내 (2026년 예상)</a></li>
+                </ul>
+                <p>위 자료들은 <strong>티볼리</strong>의 <strong>자동차리스</strong> 및 <strong>장기렌트카</strong> 이용 시 발생할 수 있는 법적, 경제적 측면을 이해하는 데 도움을 줄 수 있습니다. 특히, <strong>'티볼리 유지비'</strong>, <strong>'자동차세'</strong>, <strong>'보험'</strong> 등에 대한 공식적인 정보를 확인하는 것이 중요합니다. <strong>'정부'</strong>에서 제공하는 신뢰도 높은 정보는 합리적인 판단의 기초가 됩니다.</p>
+            </div>
+        </section>
     </main>
-  </body>
-</html>
+
+    <script>
+        // FAQ 토글 기능
+        document.querySelectorAll('.faq-item h3').forEach(item => {
+            item.addEventListener('click', event => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
+            });
+        });
+    </script>
+  
